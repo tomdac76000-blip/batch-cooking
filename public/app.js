@@ -1,4 +1,16 @@
 const $ = s => document.querySelector(s);
+// Identifiant local : le serveur gratuit sépare les données de chaque navigateur
+// sans demander de compte ni de mot de passe.
+const batchClientId = localStorage.getItem('batch-client-id') || crypto.randomUUID();
+localStorage.setItem('batch-client-id', batchClientId);
+const batchFetch = window.fetch.bind(window);
+window.fetch = (input, options = {}) => {
+  const url = typeof input === 'string' ? input : input.url;
+  if (!url.startsWith('/api/')) return batchFetch(input, options);
+  const headers = new Headers(options.headers || {});
+  headers.set('x-batch-client', batchClientId);
+  return batchFetch(input, { ...options, headers });
+};
 const savedProfile = JSON.parse(localStorage.getItem('batch-profile') || '{}');
 const foodGroups = {
   'Viandes, œufs & végétal': [['🍗','Poulet','chicken'],['🥩','Bœuf','beef'],['🐖','Porc / jambon','pork'],['🦃','Dinde','turkey'],['🥚','Œufs','eggs'],['🫘','Lentilles','lentil'],['🫛','Pois chiches','chickpea'],['🫘','Haricots rouges','beans'],['🌱','Tofu','tofu']],

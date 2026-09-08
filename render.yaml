@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: batch-cooking
+    runtime: node
+    buildCommand: npm install
+    startCommand: node server.mjs
+    healthCheckPath: /api/health
+    envVars:
+      - key: BATCH_DATA_DIR
+        value: /opt/render/project/src/data
+    disk:
+      name: batch-data
+      mountPath: /opt/render/project/src/data
+      sizeGB: 1

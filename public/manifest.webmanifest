@@ -1,0 +1,9 @@
+{
+  "name": "Batch — tes repas de la semaine",
+  "short_name": "Batch",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fff9e8",
+  "theme_color": "#ff8cab",
+  "description": "Batch cooking, courses et suivi nutritionnel."
+}

@@ -1,0 +1,4 @@
+node_modules/
+data/user-data.json
+data/recipes.json
+.env

@@ -6,6 +6,10 @@
   "assets": {
     "directory": "./public",
     "binding": "ASSETS",
-    "not_found_handling": "single-page-application"
-  }
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*"]
+  },
+  "kv_namespaces": [
+    { "binding": "BATCH_KV", "id": "9e75e49eebdb40ac92d6f2cf706a22cc" }
+  ]
 }

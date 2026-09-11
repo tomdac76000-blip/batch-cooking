@@ -165,6 +165,32 @@ Mini omelette légumes|snack|eggs,spinach,tomato|210|17|4
 Fromage frais & tomates|snack|cheese,tomato|230|16|4
 ` .trim().split('\n').map(row => { const [name,meal,tags,kcal,protein,cost]=row.split('|'); return [name,meal,tags.split(','),+kcal,+protein,+cost]; });
 recipes.push(...catalogueLarge);
+// Fiche enrichie : le hachis reste faisable sans four, directement à la poêle.
+// Cela permet de le proposer aux personnes équipées seulement de plaques.
+const hachisParmentier = recipes.find(recipe => recipe[0] === 'Hachis parmentier léger');
+if (hachisParmentier) {
+  hachisParmentier._equipment = ['stovetop'];
+  hachisParmentier._ingredients = [
+    '500 g de bœuf haché 5 %',
+    '1 kg de pommes de terre',
+    '1 gros oignon',
+    '400 g de coulis de tomate',
+    '15 cl de lait',
+    '20 g de beurre ou 1 c. à soupe d’huile d’olive',
+    '1 gousse d’ail',
+    '1 c. à café de paprika ou d’herbes de Provence',
+    'Sel et poivre'
+  ];
+  hachisParmentier._steps = [
+    'Épluche les pommes de terre, coupe-les en morceaux et fais-les cuire 18 à 20 min dans une casserole d’eau salée.',
+    'Pendant ce temps, émince l’oignon et l’ail. Fais-les revenir 3 min dans une grande poêle avec l’huile.',
+    'Ajoute le bœuf haché, émiette-le avec une spatule et fais-le cuire 5 à 6 min, jusqu’à ce qu’il ne soit plus rosé.',
+    'Verse le coulis de tomate et le paprika. Laisse mijoter 8 min à feu doux : la sauce doit devenir assez épaisse.',
+    'Égoutte les pommes de terre. Écrase-les avec le lait et le beurre, puis sale et poivre pour obtenir une purée souple.',
+    'Répartis la viande dans 4 tuppers puis couvre de purée. Tu peux manger ainsi, ou faire dorer chaque portion 5 min à l’air fryer si tu en as un.',
+    'Laisse refroidir 20 min avant de fermer : garde 2 portions au frais et congèle les 2 autres pour la fin de semaine.'
+  ];
+}
 const pref = JSON.parse(localStorage.getItem('batch-preferences') || '{}'), selected = new Set();
 Object.values(foodGroups).flat().forEach(([, , key]) => { if (!pref[key]) pref[key] = 'ok'; });
 const foodLabelByTag=Object.fromEntries(Object.values(foodGroups).flat().map(([,label,key])=>[key,label]));
